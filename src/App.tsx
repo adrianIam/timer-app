@@ -79,6 +79,20 @@ function formatTime(seconds: number): string {
   return `${sign}${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`
 }
 
+function RubricLink() {
+  return (
+    <a
+      href={`${import.meta.env.BASE_URL}rubric.html`}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-flex items-center gap-1 text-sm text-amber-300 underline decoration-amber-400/40 underline-offset-4 hover:text-amber-200 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-amber-300"
+    >
+      Rubric &amp; score sheet <span aria-hidden="true">↗</span>
+      <span className="sr-only"> (opens in a new tab)</span>
+    </a>
+  )
+}
+
 // ── CoinToss ──────────────────────────────────────────────────────────────────
 
 function CoinToss({ onDecide }: { onDecide: (first: Team) => void }) {
@@ -108,6 +122,7 @@ function CoinToss({ onDecide }: { onDecide: (first: Team) => void }) {
         <p className="text-slate-400 text-base max-w-sm mx-auto leading-relaxed">
           Determine which team presents first in Round 1.
         </p>
+        <div className="mt-4"><RubricLink /></div>
       </div>
 
       <div className="relative flex items-center justify-center" style={{ height: 160 }}>
@@ -251,7 +266,7 @@ function RoundTimer({ phases, roundNumber, presenterTeam, commentatorTeam, onRou
   return (
     <div className="flex flex-col min-h-screen">
       {/* Header */}
-      <header className="flex items-center justify-between px-8 py-5 border-b border-slate-800">
+      <header className="flex flex-wrap items-center justify-between gap-4 px-8 py-5 border-b border-slate-800">
         <div>
           <p className="text-xs text-slate-600 font-mono uppercase tracking-widest mb-0.5">
             Ethics Olympiad Round Timer
@@ -260,6 +275,7 @@ function RoundTimer({ phases, roundNumber, presenterTeam, commentatorTeam, onRou
             Round {roundNumber}{' '}
             <span className="text-slate-500 font-normal text-sm">of 2</span>
           </p>
+          <div className="mt-1"><RubricLink /></div>
         </div>
         <div className="flex items-center gap-8">
           <div className="text-right">
@@ -440,6 +456,7 @@ function Summary({ onRestart }: { onRestart: () => void }) {
           Both teams have presented, responded, and been questioned by the judge.
           The match is complete.
         </p>
+        <div className="mt-4"><RubricLink /></div>
       </div>
 
       <div className="grid grid-cols-2 gap-px bg-slate-800 border border-slate-800 w-full max-w-lg">

@@ -1,0 +1,100 @@
+export const presentationCriteria = [
+  {
+    id: 'clarity',
+    label: 'Clarity and structure',
+    max: 5,
+    question: 'How clearly and systematically did the presentation answer the moderator’s question?',
+    bands: [
+      ['5', 'Was the argument exceptionally clear and organised around the key aspects of the question?'],
+      ['4', 'Was it reasonably clear and organised around most key aspects?'],
+      ['3', 'Was the argument hard to follow, with important aspects left out?'],
+      ['2', 'Were there serious gaps in logic or was the argument underdeveloped?'],
+      ['1', 'Was the presentation incoherent?'],
+    ],
+  },
+  {
+    id: 'analysis',
+    label: 'Analysis of ethical issues',
+    max: 5,
+    question: 'How accurately did the team identify the central ethical issues, and how deeply did it discuss them?',
+    bands: [
+      ['5', 'Did the team pinpoint the central ethical issues and examine them thoroughly?'],
+      ['4', 'Did it identify most central issues and discuss the main ones?'],
+      ['3', 'Did it adequately identify and discuss some central issues?'],
+      ['2', 'Did it misidentify some issues and discuss them inadequately?'],
+      ['1', 'Did it misidentify the central ethical issues?'],
+    ],
+  },
+  {
+    id: 'viewpoints',
+    label: 'Consideration of viewpoints',
+    max: 5,
+    question: 'How thoughtfully did the team consider different viewpoints, especially views that challenge its position?',
+    bands: [
+      ['5', 'Did it analyse the most significant views insightfully and give opposing views careful, thorough attention?'],
+      ['4', 'Did it give some different views a solid analysis and discussion?'],
+      ['3', 'Did it discuss different views without developing them adequately?'],
+      ['2', 'Did it give different views very little consideration?'],
+      ['1', 'Did it show very little awareness of different views?'],
+    ],
+  },
+] as const
+
+export const criteria = [
+  ...presentationCriteria,
+  {
+    id: 'commentary',
+    label: 'Commentary on the other team’s presentation',
+    max: 10,
+    question: 'How directly and constructively did the team engage with the other team’s presentation?',
+    bands: [
+      ['10', 'Was the commentary especially perceptive, thorough and composed?'],
+      ['9', 'Did it engage with the key arguments exceptionally well?'],
+      ['7–8', 'Did it respond soundly to the presenting team’s points?'],
+      ['5–6', 'Did it make some points while offering little insight or constructive input?'],
+      ['3–4', 'Was the response weak, off topic or limited to a string of questions?'],
+      ['1–2', 'Did it fail to address the presentation or resort to personal attacks?'],
+    ],
+  },
+  {
+    id: 'reply',
+    label: 'Reply to the other team’s commentary',
+    max: 15,
+    question: 'How effectively did the presenting team respond to the other team’s commentary?',
+    bands: [
+      ['15', 'Was the reply especially perceptive, thorough and composed?'],
+      ['12–14', 'Did the reply engage with the main points exceptionally well?'],
+      ['9–11', 'Did it offer a sound reply to the other team’s commentary?'],
+      ['6–8', 'Did it make some relevant points?'],
+      ['3–5', 'Was the reply weak or off topic?'],
+      ['1–2', 'Did the team fail to address the commentary?'],
+    ],
+  },
+  {
+    id: 'questions',
+    label: 'Answers to judges’ questions',
+    max: 15,
+    question: 'How effectively did the presenting team answer the judges’ questions?',
+    bands: [
+      ['15', 'Were the answers especially perceptive, thorough and composed?'],
+      ['14', 'Did the answers identify and examine the most urgent points?'],
+      ['12–13', 'Did they identify and examine several of the most important points?'],
+      ['10–11', 'Did they make some relevant points?'],
+      ['4–9', 'Were the answers weak or off topic?'],
+      ['1–3', 'Did the team fail to respond to the judges and to the commentary?'],
+    ],
+  },
+  {
+    id: 'dialogue',
+    label: 'Respectful dialogue across the heat',
+    max: 5,
+    question: 'How respectfully and collaboratively did the team work through the ethical issues with others?',
+    bands: [
+      ['5', 'Did it involve everyone respectfully in an exceptionally productive, collaborative discussion?'],
+      ['4', 'Did it engage respectfully with the other team’s arguments and points?'],
+      ['3', 'Did it respect the other team’s argument while exploring it only briefly?'],
+      ['2', 'Did it leave the other team’s arguments unaddressed?'],
+      ['1', 'Was it combative or dismissive toward the other team’s arguments?'],
+    ],
+  },
+] as const
