@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import ReactDOM from 'react-dom/client'
 import { criteria, presentationCriteria } from './rubric'
 import './index.css'
@@ -18,14 +18,71 @@ function sumScores(teamScores: TeamScores, rows: readonly Criterion[]) {
   return rows.reduce((total, { id }) => total + (teamScores[id] ?? 0), 0)
 }
 
+function CriterionDescription({ id, label, question }: Pick<Criterion, 'id' | 'label' | 'question'>) {
+  const [visible, setVisible] = useState(false)
+  const container = useRef<HTMLSpanElement>(null)
+  const descriptionId = `criterion-${id}-description`
+
+  useEffect(() => {
+    if (!visible) return
+
+    function handleEscape(event: KeyboardEvent) {
+      if (event.key === 'Escape') setVisible(false)
+    }
+
+    function handleOutsidePress(event: PointerEvent) {
+      if (event.target instanceof Node && !container.current?.contains(event.target)) setVisible(false)
+    }
+
+    document.addEventListener('keydown', handleEscape)
+    document.addEventListener('pointerdown', handleOutsidePress)
+    return () => {
+      document.removeEventListener('keydown', handleEscape)
+      document.removeEventListener('pointerdown', handleOutsidePress)
+    }
+  }, [visible])
+
+  return (
+    <span
+      ref={container}
+      className="relative inline-block max-w-full"
+      onPointerEnter={event => {
+        if (event.pointerType !== 'touch') setVisible(true)
+      }}
+      onPointerLeave={event => {
+        if (event.pointerType !== 'touch') setVisible(false)
+      }}
+    >
+      <button
+        type="button"
+        aria-describedby={descriptionId}
+        className="cursor-help rounded-sm text-left text-amber-300 underline decoration-amber-400/50 decoration-dotted underline-offset-4 hover:text-amber-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-300"
+        onFocus={() => setVisible(true)}
+        onBlur={() => setVisible(false)}
+        onClick={() => setVisible(true)}
+      >
+        {label}
+      </button>
+      <span
+        id={descriptionId}
+        role="tooltip"
+        hidden={!visible}
+        className="absolute top-full left-0 z-10 w-72 max-w-[calc(100vw_-_3rem)] rounded-md border border-slate-600 bg-slate-800 px-3 py-2 text-sm leading-relaxed font-normal text-slate-100 shadow-lg"
+      >
+        {question}
+      </span>
+    </span>
+  )
+}
+
 function ScoreSheet() {
   const [scores, setScores] = useState<Record<Team, TeamScores>>({ A: {}, B: {} })
 
-  function renderScoreRow({ id, label, max }: Criterion) {
+  function renderScoreRow({ id, label, max, question }: Criterion) {
     return (
       <tr key={id} className="border-t border-slate-800">
         <th scope="row" className="px-3 py-3 text-left font-medium sm:px-5">
-          <a href={`#rubric-${id}`} className={linkClass}>{label}</a>
+          <CriterionDescription id={id} label={label} question={question} />
           <span className="ml-1 whitespace-nowrap text-xs text-slate-400">/ {max}</span>
         </th>
         {teams.map(team => (
@@ -57,7 +114,7 @@ function ScoreSheet() {
     <section id="score-sheet" aria-labelledby="score-heading" className="scroll-mt-6">
       <h2 id="score-heading" className="text-2xl font-bold text-white">Score sheet</h2>
       <p className="mt-2 max-w-2xl text-sm leading-relaxed text-slate-300">
-        Each team presents one case and comments on the other. Score respectful dialogue across both cases. Select a criterion to see its scoring guidance.
+        Each team presents one case and comments on the other. Score respectful dialogue across both cases. Hover over, focus or tap a criterion to see its description.
       </p>
       <form autoComplete="off" onSubmit={event => event.preventDefault()} className="mt-5 grid gap-5">
         <div className="grid gap-3 sm:grid-cols-3">
