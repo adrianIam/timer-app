@@ -182,7 +182,7 @@ function RubricPage() {
     <div className="min-h-screen bg-[#0b0f18] font-sans text-slate-100 scheme-dark">
       <main className="mx-auto max-w-4xl px-4 py-10 sm:px-8 sm:py-14">
         <header className="mb-8 border-b border-slate-800 pb-7">
-          <p className="font-mono text-xs tracking-wider text-amber-300 uppercase">2026 Middle School Ethics Olympiad</p>
+          <p className="font-mono text-xs tracking-wider text-amber-300 uppercase">Ethics Olympiad Round Timer</p>
           <h1 className="mt-3 text-3xl font-bold tracking-tight text-white sm:text-4xl">Scoring rubric &amp; score sheet</h1>
           <nav aria-label="Page sections" className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-sm">
             <a className={linkClass} href="#score-sheet">Fill in the score sheet</a>
