@@ -8,6 +8,14 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
+  build: {
+    rolldownOptions: {
+      input: {
+        timer: path.resolve(__dirname, 'index.html'),
+        rubric: path.resolve(__dirname, 'rubric.html'),
+      },
+    },
+  },
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
